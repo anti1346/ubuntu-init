@@ -1,5 +1,7 @@
 FROM ubuntu:22.04
 
+LABEL website="sangchul.kr"
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV TZ=Asia/Seoul
