@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+
+  ubuntu:
+    image: php:8.1-fpm
+    restart: on-failure
+    container_name: ubuntu
+    hostname: ubuntu
+    privileged: true
+    user: root
+    stdin_open: true
+    tty: true
+    # command: sh -c "apt install -y nginx && bash"
+    command: /usr/sbin/init
+    network_mode: host
+    # ports:
+    #   - 80:80
+    #   - 9000:9000
+    #   - 8000:8000
