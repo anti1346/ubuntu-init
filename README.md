@@ -21,20 +21,24 @@ docker exec -it ubuntu-init bash
 ```
 
 <details>
-
-## docker build
+<summary>docker build</summary>
+### docker build
 ```
-docker build --tag anti1346/ubuntu-init:22.04 .
+docker build --tag anti1346/ubuntu-init:amd64 .
 ```
-## docker tag change
+### docker tag change
 ```
-docker image tag anti1346/ubuntu-init:22.04 anti1346/ubuntu-init:latest
+docker image tag anti1346/ubuntu-init:amd64 anti1346/ubuntu-init:22.04
 ```
-## docker container run
+### docker pull
 ```
-docker run -d --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:latest /sbin/init
+docker pull anti1346/ubuntu-init:22.04
 ```
-## entering a running docker container
+### docker container run
+```
+docker run -d --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:22.04 /sbin/init
+```
+### entering a running docker container
 ```
 docker exec -it ubuntu-init bash
 ```
