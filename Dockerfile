@@ -14,14 +14,15 @@ ENV TZ=Asia/Seoul
 USER root
 
 # 패키지 설치 및 설정
-RUN cat <<EOF > /etc/apt/sources.list.d/ubuntu.sources
-Types: deb
-URIs: http://mirror.kakao.com/ubuntu/
-Suites: noble noble-updates noble-backports
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-EOF && \      
-    apt update && \
+# RUN cat <<EOF > /etc/apt/sources.list.d/ubuntu.sources
+# Types: deb
+# URIs: http://mirror.kakao.com/ubuntu/
+# Suites: noble noble-updates noble-backports
+# Components: main restricted universe multiverse
+# Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+# EOF && \
+
+RUN apt update && \
     apt install -y --no-install-recommends \
         build-essential \
         openssh-server \

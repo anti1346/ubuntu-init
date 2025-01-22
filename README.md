@@ -8,7 +8,7 @@ docker buildx create --name mybuilder --use
 docker buildx build \
   --platform linux/amd64 \
   --tag anti1346/ubuntu-init:24.04 \
-  --build-arg SSH_ROOT_PASSWORD=my_secure_password \
+  --build-arg SSH_ROOT_PASSWORD=root \
   --no-cache --load .  
 ```
 <details>
@@ -19,7 +19,7 @@ docker buildx build \
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --tag anti1346/ubuntu-init:24.04 \
-  --build-arg SSH_ROOT_PASSWORD=my_secure_password \
+  --build-arg SSH_ROOT_PASSWORD=root \
   --no-cache --push .
 ```
 </details>
