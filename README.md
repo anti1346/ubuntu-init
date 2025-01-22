@@ -3,10 +3,19 @@
 ```
 docker buildx create --name mybuilder --use
 ```
+### docker buildx build & load
+```
+docker buildx build --platform linux/amd64,linux/arm64 --tag anti1346/ubuntu-init:latest --no-cache --load .
+```
+
+<details>
+<summary>docker build & push</summary>
 ### docker buildx build & push
 ```
 docker buildx build --platform linux/amd64,linux/arm64 --tag anti1346/ubuntu-init:latest --no-cache --push .
 ```
+</details>
+
 ### docker inspect
 ```
 docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'

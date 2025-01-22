@@ -14,13 +14,15 @@ ENV TZ=Asia/Seoul
 USER root
 
 # 패키지 설치 및 설정
-RUN echo "Types: deb" > /etc/apt/sources.list.d/ubuntu.sources && \
-    echo "URIs: http://mirror.kakao.com/ubuntu/" >> /etc/apt/sources.list.d/ubuntu.sources && \
-    echo "Suites: noble noble-updates noble-backports" >> /etc/apt/sources.list.d/ubuntu.sources && \
-    echo "Components: main restricted universe multiverse" >> /etc/apt/sources.list.d/ubuntu.sources && \
-    echo "Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg" >> /etc/apt/sources.list.d/ubuntu.sources && \        
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN cat <<EOF > /etc/apt/sources.list.d/ubuntu.sources
+Types: deb
+URIs: http://mirror.kakao.com/ubuntu/
+Suites: noble noble-updates noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+EOF && \      
+    apt update && \
+    apt install -y --no-install-recommends \
         build-essential \
         openssh-server \
         sudo \
@@ -35,12 +37,14 @@ RUN echo "Types: deb" > /etc/apt/sources.list.d/ubuntu.sources && \
     echo "$TZ" > /etc/timezone && \
     ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
-    echo "root:$SSH_ROOT_PASSWORD" | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
-    apt-get clean && \
-    apt-get autoremove -y && \
+    apt clean && \
+    apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
+
+# SSH 비밀번호 설정 (Docker Run 시 전달)
+RUN [ ! -z "$SSH_ROOT_PASSWORD" ] && echo "root:$SSH_ROOT_PASSWORD" | chpasswd || echo "root:root" | chpasswd
 
 # bash 프롬프트 설정
 RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> /root/.bashrc
