@@ -30,7 +30,7 @@ docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
 ### docker container run
 ```
-docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:latest
+docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init ubuntu-init:24.04
 ```
 ### entering a running docker container
 ```

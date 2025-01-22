@@ -44,14 +44,8 @@ RUN apt update && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-# SSH 비밀번호 설정 (Docker Run 시 전달)
-RUN [ ! -z "$SSH_ROOT_PASSWORD" ] && echo "root:$SSH_ROOT_PASSWORD" | chpasswd || echo "root:root" | chpasswd
-
 # bash 프롬프트 설정
 RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> /root/.bashrc
 
-# SSH 포트 열기
-EXPOSE 22
-
 # systemd를 기본 프로세스로 실행
-CMD ["/sbin/init"]
+CMD ["/bin/bash", "-c", "[ -z \"$SSH_ROOT_PASSWORD\" ] && echo 'Error: SSH_ROOT_PASSWORD is not set' && exit 1 || (echo root:$SSH_ROOT_PASSWORD | chpasswd && /sbin/init)"]
