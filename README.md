@@ -1,7 +1,7 @@
 # ubuntu-init
 ### docker buildx create
 ```
-docker buildx create --use
+docker buildx create --name mybuilder --use
 ```
 ### docker buildx build & push
 ```
