@@ -3,7 +3,7 @@
 ```
 docker buildx create --name mybuilder --use
 ```
-### 단일 플랫폼 이미지 빌드 및 로드
+### 단일 플랫폼으로 빌드 (로컬로 로드)
 ```
 docker buildx build \
   --platform linux/amd64 \
@@ -12,7 +12,7 @@ docker buildx build \
   --no-cache --load .  
 ```
 <details>
-<summary>멀티플랫폼 이미지를 빌드하고 푸시</summary>
+<summary>다중 플랫폼으로 빌드 후 Docker Hub에 푸시</summary>
 
 ### docker buildx build & push
 ```
@@ -20,7 +20,7 @@ docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --tag anti1346/ubuntu-init:24.04 \
   --build-arg SSH_ROOT_PASSWORD=root \
-  --no-cache --push .
+  --no-cache --push .  
 ```
 </details>
 

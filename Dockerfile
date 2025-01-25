@@ -14,14 +14,6 @@ ENV TZ=Asia/Seoul
 USER root
 
 # 패키지 설치 및 설정
-# RUN cat <<EOF > /etc/apt/sources.list.d/ubuntu.sources
-# Types: deb
-# URIs: http://mirror.kakao.com/ubuntu/
-# Suites: noble noble-updates noble-backports
-# Components: main restricted universe multiverse
-# Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-# EOF && \
-
 RUN apt update && \
     apt install -y --no-install-recommends \
         build-essential \
@@ -34,7 +26,7 @@ RUN apt update && \
         net-tools \
         curl \
         vim \
-        systemd && \
+        systemd systemd-sysv && \
     echo "$TZ" > /etc/timezone && \
     ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
@@ -47,5 +39,9 @@ RUN apt update && \
 # bash 프롬프트 설정
 RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> /root/.bashrc
 
-# systemd를 기본 프로세스로 실행
-CMD ["/bin/bash", "-c", "[ -z \"$SSH_ROOT_PASSWORD\" ] && echo 'Error: SSH_ROOT_PASSWORD is not set' && exit 1 || (echo root:$SSH_ROOT_PASSWORD | chpasswd && /sbin/init)"]
+# SSH 포트 열기
+EXPOSE 22
+
+# systemd 실행 설정
+STOPSIGNAL SIGRTMIN+3
+CMD ["/lib/systemd/systemd"]
