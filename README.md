@@ -1,20 +1,22 @@
 # ubuntu-init
-### docker buildx create
+#### docker buildx create
 ```
 docker buildx create --name mybuilder --use
 ```
-### 단일 플랫폼으로 빌드 (로컬로 로드)
+#### 단일 플랫폼으로 빌드 (로컬로 로드)
 ```
 docker buildx build \
-  --platform linux/amd64 \
-  --tag anti1346/ubuntu-init:24.04 \
-  --build-arg SSH_ROOT_PASSWORD=root \
-  --no-cache --load .  
+    --platform linux/amd64 \
+    --tag anti1346/ubuntu-init:24.04 \
+    --build-arg SSH_ROOT_PASSWORD=root \
+    --no-cache \
+    --load .
 ```
 <details>
+
 <summary>다중 플랫폼으로 빌드 후 Docker Hub에 푸시</summary>
 
-### docker buildx build & push
+##### docker buildx build & push
 ```
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
@@ -24,21 +26,28 @@ docker buildx build \
 ```
 </details>
 
-### docker inspect
+#### 이미지 'latest' 태그 추가
 ```
-docker inspect anti1346/ubuntu-init:24.04 --format='{{.Architecture}}'
+docker tag anti1346/ubuntu-init:24.04 anti1346/ubuntu-init:latest
 ```
+#### 이미지 아키텍처 확인(docker inspect)
 ```
 docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
-### docker container run
+#### 컨테이너 실행(docker run)
 ```
 docker run -it --rm --privileged --name ubuntu-init anti1346/ubuntu-init:24.04 /bin/bash
 ```
-
-### entering a running docker container
+#### 컨테이너에 Bash 세션으로 접근(docker exec)
 ```
 docker exec -it ubuntu-init bash
+```
+#### 이미지를 Docker 레지스트리에 업로드(docker push)
+```
+docker push anti1346/ubuntu-init:24.04
+```
+```
+docker push anti1346/ubuntu-init:latest
 ```
 
 <details>
