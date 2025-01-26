@@ -26,11 +26,14 @@ docker buildx build \
 
 ### docker inspect
 ```
+docker inspect anti1346/ubuntu-init:24.04 --format='{{.Architecture}}'
+```
+```
 docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
 ### docker container run
 ```
-docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:22.04
+docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:24.04
 ```
 ### entering a running docker container
 ```
