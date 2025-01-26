@@ -26,7 +26,7 @@ docker buildx build \
 ```
 </details>
 
-#### 이미지 'latest' 태그 추가
+#### 이미지 latest 태그 추가
 ```
 docker tag anti1346/ubuntu-init:24.04 anti1346/ubuntu-init:latest
 ```
@@ -36,7 +36,7 @@ docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
 #### 컨테이너 실행(docker run)
 ```
-docker run -it --rm --privileged --name ubuntu-init anti1346/ubuntu-init:24.04 /bin/bash
+docker run -d --privileged --name ubuntu-init anti1346/ubuntu-init:latest
 ```
 #### 컨테이너에 Bash 세션으로 접근(docker exec)
 ```
@@ -44,10 +44,10 @@ docker exec -it ubuntu-init bash
 ```
 #### 이미지를 Docker 레지스트리에 업로드(docker push)
 ```
-docker push anti1346/ubuntu-init:24.04
-```
-```
 docker push anti1346/ubuntu-init:latest
+```
+```
+docker push anti1346/ubuntu-init:24.04
 ```
 
 <details>

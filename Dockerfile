@@ -27,11 +27,14 @@ RUN apt update && \
         net-tools \
         curl \
         vim && \
+    # 타임존 설정
     echo "$TZ" > /etc/timezone && \
     ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
+    # SSH 설정 변경
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    # 불필요한 패키지 정리
     apt clean && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
@@ -43,7 +46,7 @@ RUN ln -sf /lib/systemd/systemd /sbin/init
 RUN echo "root:$SSH_ROOT_PASSWORD" | chpasswd
 
 # bash 프롬프트 설정
-RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> /root/.bashrc
+RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> ${HOME}/.bashrc
 
 # SSH 포트 열기
 EXPOSE 22
