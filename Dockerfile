@@ -36,7 +36,11 @@ RUN apt update && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+# 심볼릭 링크 생성
 RUN ln -sf /lib/systemd/systemd /sbin/init
+
+# root 비밀번호 설정
+RUN echo "root:$SSH_ROOT_PASSWORD" | chpasswd
 
 # bash 프롬프트 설정
 RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\]:\[\033[01;31m\]\W\[\e[m\]$ "' >> /root/.bashrc
@@ -44,5 +48,5 @@ RUN echo 'export PS1="\[\e[33m\]\u\[\e[m\]\[\e[37m\]@\[\e[m\]\[\e[34m\]\h\[\e[m\
 # SSH 포트 열기
 EXPOSE 22
 
-# systemd를 활성화
+# systemd 활성화
 CMD ["/sbin/init"]

@@ -44,19 +44,22 @@ docker exec -it ubuntu-init bash
 <details>
 <summary>원도우 빌드 및 실행</summary>
 
-### 이미지를 빌드하고 태그를 지정
+#### 이미지를 빌드하고 태그를 지정
 ```
 docker build -t anti1346/ubuntu-init:24.04 .
 ```
-### 컨테이너를 백그라운드에서 실행
+```
+docker build -t anti1346/ubuntu-init:24.04 --build-arg SSH_ROOT_PASSWORD=root --no-cache .
+```
+#### 컨테이너를 백그라운드에서 실행
 ```
 docker run -d --privileged --name ubuntu-init anti1346/ubuntu-init:24.04
 ```
-### 이미지의 시스템 아키텍처를 확인
+#### 이미지의 시스템 아키텍처를 확인
 ```
 docker inspect anti1346/ubuntu-init:24.04 --format='{{.Architecture}}'
 ```
-### 컨테이너에 bash 셸로 접속
+#### 컨테이너에 bash 셸로 접속
 ```
 docker exec -it ubuntu-init bash
 ```
@@ -65,23 +68,23 @@ docker exec -it ubuntu-init bash
 <details>
 <summary>docker build</summary>
 
-### docker build
+#### docker build
 ```
 docker build --tag anti1346/ubuntu-init:amd64 .
 ```
-### docker tag change
+#### docker tag change
 ```
 docker image tag anti1346/ubuntu-init:amd64 anti1346/ubuntu-init:22.04
 ```
-### docker pull
+#### docker pull
 ```
 docker pull anti1346/ubuntu-init:22.04
 ```
-### docker container run
+#### docker container run
 ```
 docker run -d --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:22.04 /sbin/init
 ```
-### entering a running docker container
+#### entering a running docker container
 ```
 docker exec -it ubuntu-init bash
 ```
