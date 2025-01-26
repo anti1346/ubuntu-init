@@ -1,0 +1,24 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# systemd 설치
+RUN apt update \
+    && apt install -y systemd \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN ln -sf /lib/systemd/systemd /sbin/init
+
+# systemd를 활성화
+CMD ["/sbin/init"]
+
+
+
+#
+#     docker build -t anti1346/ubuntu-init:24.04 .  
+#     docker run -d --privileged --name ubuntu-init anti1346/ubuntu-init:24.04
+#     docker inspect anti1346/ubuntu-init:24.04 --format='{{.Architecture}}'
+#     docker exec -it ubuntu-init bash
+#
+    

@@ -33,16 +33,34 @@ docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
 ### docker container run
 ```
-docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:24.04
-```
-```
-docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:24.04 /bin/bash
+docker run -it --rm --privileged --name ubuntu-init anti1346/ubuntu-init:24.04 /bin/bash
 ```
 
 ### entering a running docker container
 ```
 docker exec -it ubuntu-init bash
 ```
+
+<details>
+<summary>원도우 빌드 및 실행</summary>
+
+### 이미지를 빌드하고 태그를 지정
+```
+docker build -t anti1346/ubuntu-init:24.04 .
+```
+### 컨테이너를 백그라운드에서 실행
+```
+docker run -d --privileged --name ubuntu-init anti1346/ubuntu-init:24.04
+```
+### 이미지의 시스템 아키텍처를 확인
+```
+docker inspect anti1346/ubuntu-init:24.04 --format='{{.Architecture}}'
+```
+### 컨테이너에 bash 셸로 접속
+```
+docker exec -it ubuntu-init bash
+```
+</details>
 
 <details>
 <summary>docker build</summary>
