@@ -35,6 +35,10 @@ docker inspect anti1346/ubuntu-init:latest --format='{{.Architecture}}'
 ```
 docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:24.04
 ```
+```
+docker run -itd --privileged --name ubuntu-init --hostname ubuntu-init anti1346/ubuntu-init:24.04 /bin/bash
+```
+
 ### entering a running docker container
 ```
 docker exec -it ubuntu-init bash
